@@ -8,15 +8,15 @@ echo " Starting AttendTrack Local Development Servers... "
 echo "=================================================="
 
 # 1. Start Backend Node.js Server in the background
-echo "-> Starting Backend API (http://localhost:3000)..."
+echo "-> Starting Backend API (http://localhost:8080)..."
 cd backend
 npm start &
 cd ..
 
-# Short delay to let the database connect and backend server bind to port 3000
+# Short delay to let the database connect and backend server bind to port 8080
 sleep 1.5
 
 # 2. Start Frontend Python Server in the foreground
-echo "-> Starting Frontend Web Client (http://localhost:8080)..."
+echo "-> Starting Frontend Web Client (http://localhost:5173)..."
 cd frontend/www
-python3 -m http.server 8080
+python3 -m http.server 5173

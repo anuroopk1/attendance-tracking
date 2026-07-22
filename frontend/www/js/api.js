@@ -3,7 +3,7 @@
    ============================================================ */
 
 const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== ''
-  ? 'http://localhost:3000'
+  ? 'http://localhost:8080'
   : 'https://attendance-tracking-rj45.onrender.com'; // Replace with your actual Render backend URL once deployed
 
 window.AppAPI = {
