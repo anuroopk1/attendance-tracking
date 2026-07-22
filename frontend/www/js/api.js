@@ -2,7 +2,7 @@
    API CONFIG — Connects frontend to Node.js backend API
    ============================================================ */
 
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.startsWith('192.168.')
+const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== ''
   ? 'http://localhost:3000'
   : 'https://attendance-tracking-rj45.onrender.com'; // Replace with your actual Render backend URL once deployed
 
