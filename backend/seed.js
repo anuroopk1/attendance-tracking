@@ -53,16 +53,16 @@ async function runSeed() {
   await Attendance.deleteMany({});
 
   // 2. Hash default passwords
-  const adminPwd = await bcrypt.hash('admin123', 10);
-  const trainerPwd = await bcrypt.hash('trainer123', 10);
+  const rootPwd = await bcrypt.hash('root', 10);
   const studentPwd = await bcrypt.hash('student123', 10);
 
   // 3. Seed Users
   const users = [
-    { _id: 'admin1',   role: 'admin',   name: 'Dr. Priya Sharma',    email: 'admin@demo.com',   password: adminPwd,   photo: makeAvatarSvg('PS', 7) },
-    { _id: 'trainer1', role: 'trainer', name: 'Prof. Rajesh Kumar',  email: 'trainer@demo.com', password: trainerPwd, photo: makeAvatarSvg('RK', 0) },
-    { _id: 'trainer2', role: 'trainer', name: 'Prof. Anita Desai',   email: 'trainer2@demo.com',password: trainerPwd, photo: makeAvatarSvg('AD', 9) },
-    { _id: 'student1', role: 'student', name: 'Arjun Mehta',         email: 'student@demo.com', password: studentPwd, photo: makeAvatarSvg('AM', 1) },
+    { _id: 'admin1',   role: 'admin',   name: 'Dr. Priya Sharma',    email: 'admin@s2pedutech.com',   password: rootPwd,   photo: makeAvatarSvg('PS', 7) },
+    { _id: 'trainer1', role: 'trainer', name: 'Prof. Anuroop Kanade', email: 'anuroop@s2pedutech.com', password: rootPwd, photo: makeAvatarSvg('AK', 0) },
+    { _id: 'trainer2', role: 'trainer', name: 'Prof. Pranay Kumar',   email: 'pranay@s2pedutech.com',  password: rootPwd, photo: makeAvatarSvg('PK', 9) },
+    { _id: 'trainer3', role: 'trainer', name: 'Prof. Samarth Kumar',  email: 'samarth@s2pedutech.com', password: rootPwd, photo: makeAvatarSvg('SK', 2) },
+    { _id: 'student1', role: 'student', name: 'Arjun Mehta',         email: 'student@demo.com',        password: studentPwd, photo: makeAvatarSvg('AM', 1) },
   ];
 
   await User.insertMany(users);
@@ -73,7 +73,7 @@ async function runSeed() {
     { _id: 'b1', name: 'CS-A Morning',   subject: 'Data Structures',    schedule: '09:00 AM', room: 'Lab 301', color: '#6750A4', trainers: ['trainer1'] },
     { _id: 'b2', name: 'CS-B Afternoon', subject: 'Algorithms',         schedule: '02:00 PM', room: 'Room 204', color: '#0D47A1', trainers: ['trainer1'] },
     { _id: 'b3', name: 'IT-A Morning',   subject: 'Database Systems',   schedule: '10:30 AM', room: 'Lab 201', color: '#1B5E20', trainers: ['trainer2'] },
-    { _id: 'b4', name: 'EC-A Evening',   subject: 'Digital Electronics', schedule: '04:00 PM', room: 'Room 105', color: '#880E4F', trainers: [] },
+    { _id: 'b4', name: 'EC-A Evening',   subject: 'Digital Electronics', schedule: '04:00 PM', room: 'Room 105', color: '#880E4F', trainers: ['trainer3'] },
   ];
 
   await Batch.insertMany(batches);
