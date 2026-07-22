@@ -1,0 +1,39 @@
+/* ============================================================
+   THEMES — Light / Dark
+   ============================================================ */
+
+/* Already handled in design-tokens.css via [data-theme="dark"] */
+
+/* Detect system preference on first load */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --gray-50:    #0f172a;
+    --gray-100:   #1e293b;
+    --gray-200:   #334155;
+    --gray-300:   #475569;
+    --gray-400:   #64748b;
+    --gray-500:   #94a3b8;
+    --gray-600:   #cbd5e1;
+    --gray-700:   #e2e8f0;
+    --gray-800:   #f1f5f9;
+    --gray-900:   #f8fafc;
+
+    --md-background:        #0f172a;
+    --md-on-background:     #f8fafc;
+    --md-surface:           #1e293b;
+    --md-on-surface:        #f8fafc;
+    --md-surface-variant:   #334155;
+    --md-on-surface-var:    #94a3b8;
+    --md-surface-1:         #1e293b;
+    --md-surface-2:         #334155;
+    --md-outline-variant:   #334155;
+    --md-outline:           #475569;
+    --primary-light:        #1e3a5f;
+    --primary-border:       #1e40af;
+    --border: 1px solid #334155;
+    --status-present-bg:    #052e16;
+    --status-absent-bg:     #450a0a;
+    --status-late-bg:       #451a03;
+    --status-leave-bg:      #1e3a5f;
+  }
+}

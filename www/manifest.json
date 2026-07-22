@@ -1,0 +1,20 @@
+{
+  "name": "AttendTrack — Attendance Management",
+  "short_name": "AttendTrack",
+  "description": "Professional attendance management for educational institutes",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1e40af",
+  "background_color": "#f9fafb",
+  "icons": [
+    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%231e40af'/><text x='96' y='110' text-anchor='middle' font-family='sans-serif' font-size='100' font-weight='700' fill='%23fff'>📋</text></svg>", "sizes": "192x192", "type": "image/svg+xml" },
+    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%231e40af'/><text x='256' y='300' text-anchor='middle' font-family='sans-serif' font-size='280' font-weight='700' fill='%23fff'>📋</text></svg>", "sizes": "512x512", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "Trainer Portal", "url": "./#trainer-dashboard", "description": "Mark attendance for assigned batches" },
+    { "name": "Admin Dashboard", "url": "./#admin-dashboard", "description": "Manage batches, students and view reports" }
+  ],
+  "categories": ["education", "productivity"],
+  "lang": "en-IN"
+}

@@ -1,0 +1,164 @@
+/* ============================================================
+   ANIMATIONS — Keep swipe physics, remove decorative effects
+   ============================================================ */
+
+/* ── Page Transitions — Smooth cross-fade with card scale ────── */
+.page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  will-change: transform, opacity;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.page.page-enter       { transform: scale(0.98) translateY(12px); opacity: 0; }
+.page.page-active      { transform: scale(1) translateY(0);    opacity: 1; }
+.page.page-exit        { transform: scale(0.99) translateY(-6px); opacity: 0; pointer-events: none; }
+.page.page-enter-back  { transform: scale(1.01) translateY(-12px); opacity: 0; }
+.page.page-exit-back   { transform: scale(0.99) translateY(6px);   opacity: 0; pointer-events: none; }
+
+/* ── Swipe Card ──────────────────────────────────────────────── */
+.swipe-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-xl);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  will-change: transform;
+  transform-origin: center bottom;
+}
+.swipe-card:active { cursor: grabbing; }
+
+.swipe-card.stack-1 {
+  transform: scale(0.97) translateY(10px);
+  filter: brightness(0.95);
+  z-index: 1;
+}
+.swipe-card.stack-2 {
+  transform: scale(0.94) translateY(20px);
+  filter: brightness(0.9);
+  z-index: 0;
+}
+.swipe-card.is-top { z-index: 3; }
+
+/* ── Swipe Overlays ──────────────────────────────────────────── */
+.swipe-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+.overlay-present { background: rgba(34,197,94,0.82); }
+.overlay-absent  { background: rgba(239,68,68,0.82); }
+.overlay-late    { background: rgba(249,115,22,0.82); }
+.overlay-leave   { background: rgba(59,130,246,0.82); }
+
+.overlay-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.overlay-label.rotate-right { transform: rotate(-12deg); }
+.overlay-label.rotate-left  { transform: rotate(12deg); }
+.overlay-label.rotate-up,
+.overlay-label.rotate-down  { transform: none; }
+.overlay-label .overlay-icon { font-size: 52px; line-height: 1; }
+
+/* ── Spring-back ─────────────────────────────────────────────── */
+@keyframes springBack {
+  0%   { transform: var(--spring-from, translate(0,0)); }
+  60%  { transform: translate(0,0) rotate(0deg) scale(1.02); }
+  100% { transform: translate(0,0) rotate(0deg) scale(1); }
+}
+.spring-back { animation: springBack 0.4s var(--ease-decelerate) forwards; }
+
+/* ── Fly-off ─────────────────────────────────────────────────── */
+@keyframes flyRight { to { transform: translateX(150%) rotate(25deg); opacity: 0; } }
+@keyframes flyLeft  { to { transform: translateX(-150%) rotate(-25deg); opacity: 0; } }
+@keyframes flyUp    { to { transform: translateY(-130%) rotate(-3deg); opacity: 0; } }
+@keyframes flyDown  { to { transform: translateY(130%) rotate(3deg); opacity: 0; } }
+
+.fly-right { animation: flyRight 0.35s var(--ease-accelerate) forwards; }
+.fly-left  { animation: flyLeft  0.35s var(--ease-accelerate) forwards; }
+.fly-up    { animation: flyUp    0.35s var(--ease-accelerate) forwards; }
+.fly-down  { animation: flyDown  0.35s var(--ease-accelerate) forwards; }
+
+/* ── Stack promote ───────────────────────────────────────────── */
+@keyframes promoteStack {
+  from { transform: scale(0.97) translateY(10px); filter: brightness(0.95); }
+  to   { transform: scale(1) translateY(0); filter: brightness(1); }
+}
+.promote { animation: promoteStack 0.28s var(--ease-decelerate) forwards; }
+
+/* ── Slide up panel ──────────────────────────────────────────── */
+@keyframes slideUp   { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes slideDown { from { transform: translateY(0); } to { transform: translateY(100%); } }
+.slide-up   { animation: slideUp   0.35s var(--ease-decelerate) forwards; }
+.slide-down { animation: slideDown 0.28s var(--ease-accelerate) forwards; }
+
+/* ── Fade ────────────────────────────────────────────────────── */
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+.fade-in  { animation: fadeIn  var(--dur-medium-1) var(--ease-standard) forwards; }
+.fade-out { animation: fadeOut var(--dur-short-4)   var(--ease-standard) forwards; }
+
+/* ── Toast ───────────────────────────────────────────────────── */
+@keyframes toastIn  {
+  from { transform: translateY(80px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes toastOut {
+  from { transform: translateY(0);    opacity: 1; }
+  to   { transform: translateY(80px); opacity: 0; }
+}
+
+/* ── Progress ring ───────────────────────────────────────────── */
+.ring-progress {
+  transition: stroke-dashoffset 1s var(--ease-decelerate);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* ── Interactive micro-interactions ───────────────────────────── */
+@keyframes bounceIcon {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cardEntrance {
+  from { transform: translateY(10px) scale(0.96); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.animate-icon-bounce {
+  animation: bounceIcon 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-card-entrance {
+  animation: cardEntrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

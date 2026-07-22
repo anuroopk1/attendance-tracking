@@ -1,0 +1,161 @@
+/* ============================================================
+   DESIGN TOKENS — Professional Neutral Palette
+   AttendTrack v2
+   ============================================================ */
+
+:root {
+  /* ── Brand Colors (Executive Navy Blue) ─────────────────────── */
+  --primary:           #1e3a8a;   /* blue-900 */
+  --primary-hover:     #1e40af;   /* blue-800 */
+  --primary-light:     #eff6ff;   /* blue-50  */
+  --primary-border:    #bfdbfe;   /* blue-200 */
+
+  /* ── Neutral Slate Palette ───────────────────────────────── */
+  --gray-50:    #f8fafc;
+  --gray-100:   #f1f5f9;
+  --gray-200:   #e2e8f0;
+  --gray-300:   #cbd5e1;
+  --gray-400:   #94a3b8;
+  --gray-500:   #64748b;
+  --gray-600:   #475569;
+  --gray-700:   #334155;
+  --gray-800:   #1e293b;
+  --gray-900:   #0f172a;
+
+  /* ── Semantic Aliases ─────────────────────────────────────── */
+  --md-primary:           var(--primary);
+  --md-on-primary:        #ffffff;
+  --md-primary-container: var(--primary-light);
+  --md-on-primary-cont:   var(--primary);
+
+  --md-secondary:         var(--gray-600);
+  --md-on-secondary:      #ffffff;
+  --md-secondary-cont:    var(--gray-100);
+  --md-on-secondary-cont: var(--gray-700);
+
+  --md-error:             #b91c1c;
+  --md-on-error:          #ffffff;
+  --md-error-cont:        #fef2f2;
+  --md-on-error-cont:     #991b1b;
+
+  /* ── Status Colors (Clean & Professional) ─────────────────── */
+  --status-present:       #15803d;
+  --status-present-bg:    #f0fdf4;
+  --status-present-border:#bbf7d0;
+  --status-absent:        #b91c1c;
+  --status-absent-bg:     #fef2f2;
+  --status-absent-border: #fecaca;
+  --status-late:          #c2410c;
+  --status-late-bg:       #fff7ed;
+  --status-late-border:   #ffedd5;
+  --status-leave:         #1d4ed8;
+  --status-leave-bg:      #eff6ff;
+  --status-leave-border:  #bfdbfe;
+
+  /* ── Surface & Background ────────────────────────────────── */
+  --md-background:        #f8fafc;
+  --md-on-background:     var(--gray-900);
+  --md-surface:           #ffffff;
+  --md-on-surface:        var(--gray-900);
+  --md-surface-variant:   var(--gray-100);
+  --md-on-surface-var:    var(--gray-500);
+  --md-surface-1:         var(--gray-50);
+  --md-surface-2:         var(--gray-100);
+  --md-outline:           var(--gray-400);
+  --md-outline-variant:   var(--gray-200);
+  --md-inverse-surface:   var(--gray-900);
+  --md-inverse-on-surface:var(--gray-100);
+  --md-inverse-primary:   #93c5fd;
+
+  /* ── Border & Shadow ─────────────────────────────────────── */
+  --border:               1px solid var(--gray-200);
+  --border-focus:         1px solid var(--primary);
+  --shadow-sm:            0 1px 2px 0 rgba(0,0,0,.04);
+  --shadow-md:            0 1px 3px 0 rgba(0,0,0,.06), 0 1px 2px -1px rgba(0,0,0,.06);
+  --shadow-lg:            0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05);
+
+  /* Keep legacy aliases for compat */
+  --elev-1: var(--shadow-sm);
+  --elev-2: var(--shadow-md);
+  --elev-3: var(--shadow-lg);
+
+  /* ── Border Radius (Clean Professional Rectangular Curves) ── */
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   10px;
+  --radius-2xl:  12px;
+  --radius-full: 9999px;
+
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --sp-1:  4px;  --sp-2:  8px;  --sp-3:  12px; --sp-4:  16px;
+  --sp-5:  20px; --sp-6:  24px; --sp-7:  28px; --sp-8:  32px;
+  --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display-large:  57px / 64px 'Inter', sans-serif;
+  --font-headline-large: 32px / 40px 'Inter', sans-serif;
+  --font-title-large:    20px / 28px 'Inter', sans-serif;
+  --font-title-med:      16px / 24px 'Inter', sans-serif;
+  --font-title-small:    14px / 20px 'Inter', sans-serif;
+  --font-body-large:     16px / 24px 'Inter', sans-serif;
+  --font-body-med:       14px / 20px 'Inter', sans-serif;
+  --font-body-small:     12px / 16px 'Inter', sans-serif;
+  --font-label-large:    14px / 20px 'Inter', sans-serif;
+  --font-label-med:      12px / 16px 'Inter', sans-serif;
+  --font-label-small:    11px / 16px 'Inter', sans-serif;
+
+  /* ── Easing & Duration ───────────────────────────────────── */
+  --ease-standard:   cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --dur-short-3:     150ms;
+  --dur-short-4:     200ms;
+  --dur-medium-1:    250ms;
+  --dur-medium-2:    300ms;
+  --dur-medium-3:    350ms;
+
+  /* ── Z-Index ─────────────────────────────────────────────── */
+  --z-base:    0;
+  --z-card:    10;
+  --z-nav:     100;
+  --z-overlay: 200;
+  --z-modal:   300;
+  --z-toast:   400;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  /* ── Inverted Neutral Slate Palette for Dark Mode ── */
+  --gray-50:    #0f172a;
+  --gray-100:   #1e293b;
+  --gray-200:   #334155;
+  --gray-300:   #475569;
+  --gray-400:   #64748b;
+  --gray-500:   #94a3b8;
+  --gray-600:   #cbd5e1;
+  --gray-700:   #e2e8f0;
+  --gray-800:   #f1f5f9;
+  --gray-900:   #f8fafc;
+
+  --md-background:        #0f172a;
+  --md-on-background:     #f8fafc;
+  --md-surface:           #1e293b;
+  --md-on-surface:        #f8fafc;
+  --md-surface-variant:   #334155;
+  --md-on-surface-var:    #94a3b8;
+  --md-surface-1:         #1e293b;
+  --md-surface-2:         #334155;
+  --md-outline-variant:   #334155;
+  --md-outline:           #475569;
+  --md-inverse-surface:   #f8fafc;
+  --md-inverse-on-surface:#0f172a;
+  --primary-light:        #1e3a5f;
+  --primary-border:       #1e40af;
+  --border: 1px solid #334155;
+  --status-present-bg:    #052e16;
+  --status-absent-bg:     #450a0a;
+  --status-late-bg:       #451a03;
+  --status-leave-bg:      #1e3a5f;
+}
