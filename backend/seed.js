@@ -60,9 +60,9 @@ async function runSeed() {
   const users = [
     { _id: 'admin1',   role: 'admin',   name: 'Dr. Priya Sharma',    email: 'admin@s2pedutech.com',   password: rootPwd,   photo: makeAvatarSvg('PS', 7) },
     { _id: 'trainer1', role: 'trainer', name: 'Prof. Anuroop Kanade', email: 'anuroop@s2pedutech.com', password: rootPwd, photo: makeAvatarSvg('AK', 0) },
-    { _id: 'trainer2', role: 'trainer', name: 'Prof. Pranay Kumar',   email: 'pranay@s2pedutech.com',  password: rootPwd, photo: makeAvatarSvg('PK', 9) },
-    { _id: 'trainer3', role: 'trainer', name: 'Prof. Samarth Kumar',  email: 'samarth@s2pedutech.com', password: rootPwd, photo: makeAvatarSvg('SK', 2) },
-    { _id: 'student1', role: 'student', name: 'Arjun Mehta',         email: 'student@demo.com',        password: studentPwd, photo: makeAvatarSvg('AM', 1) },
+    { _id: 'trainer2', role: 'trainer', name: 'Prof. Pranay Ramteke',   email: 'pranay@s2pedutech.com',  password: rootPwd, photo: makeAvatarSvg('PK', 9) },
+    { _id: 'trainer3', role: 'trainer', name: 'Prof. Samarth Nandgirwar',  email: 'samarth@s2pedutech.com', password: rootPwd, photo: makeAvatarSvg('SK', 2) },
+    { _id: 'student1', role: 'student', name: 'Prof. Mayur Dube',         email: 'student@demo.com',        password: studentPwd, photo: makeAvatarSvg('AM', 1) },
   ];
 
   await User.insertMany(users);

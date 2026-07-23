@@ -2,9 +2,7 @@
    API CONFIG — Connects frontend to Node.js backend API
    ============================================================ */
 
-const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== ''
-  ? 'http://localhost:8080'
-  : 'https://attendance-tracking-rj45.onrender.com'; // Replace with your actual Render backend URL once deployed
+const API_BASE_URL = 'https://attendance-tracking-rj45.onrender.com';
 
 window.AppAPI = {
   get BASE_URL() {
@@ -35,24 +33,29 @@ window.AppAPI = {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
-      ...options,
-      headers
-    });
+    try {
+      const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
+        headers
+      });
 
-    if (res.status === 401) {
-      // Token expired or invalid
-      this.saveToken(null);
-      localStorage.removeItem('att_user');
-      window.location.hash = '#login';
-      throw new Error('Session expired. Please log in again.');
+      if (res.status === 401) {
+        // Token expired or invalid
+        this.saveToken(null);
+        localStorage.removeItem('att_user');
+        window.location.hash = '#login';
+        throw new Error('Session expired. Please log in again.');
+      }
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || `HTTP error! status: ${res.status}`);
+      }
+
+      return await res.json();
+    } catch (err) {
+      console.error('API Fetch Error:', err);
+      throw err;
     }
-
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || `HTTP error! status: ${res.status}`);
-    }
-
-    return res.json();
   }
 };

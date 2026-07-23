@@ -1,5 +1,10 @@
 {
-  "appId": "com.attendancetracker.app",
+  "appId": "com.anuroopkanade.attendtrack",
   "appName": "Attendance Tracker",
-  "webDir": "www"
+  "webDir": "www",
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
 }
