@@ -76,18 +76,96 @@
   </style>
 </head>
 <body>
+  <!-- Pull-to-refresh indicator -->
+  <div id="ptr-indicator" style="
+    position:fixed;top:-60px;left:50%;transform:translateX(-50%);
+    width:44px;height:44px;border-radius:50%;
+    background:var(--primary,#6750A4);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,0.18);
+    transition:top 0.25s cubic-bezier(.4,0,.2,1);
+    z-index:9999;pointer-events:none;
+  ">↻</div>
+
   <div id="app">
     <div id="page-container"></div>
     <div class="toast-container" id="toast-container"></div>
   </div>
 
   <!-- Core -->
-  <script src="js/api.js?v=10"></script>
-  <script src="js/data-mock.js?v=10"></script>
-  <script src="js/auth.js?v=10"></script>
-  <script src="js/router.js?v=10"></script>
-  <script src="js/store.js?v=10"></script>
-  <script src="js/utils.js?v=10"></script>
+  <script src="js/api.js?v=11"></script>
+  <script src="js/data-mock.js?v=11"></script>
+  <script src="js/auth.js?v=11"></script>
+  <script src="js/router.js?v=11"></script>
+  <script src="js/store.js?v=11"></script>
+  <script src="js/utils.js?v=11"></script>
+  <script>
+  /* ── PULL-TO-REFRESH ─────────────────────────────────────── */
+  (function() {
+    const PTR_THRESHOLD = 72;   // px drag needed to trigger
+    const indicator = document.getElementById('ptr-indicator');
+    let startY = 0, currentY = 0, pulling = false, refreshing = false;
+
+    function spin(active) {
+      indicator.style.animation = active
+        ? 'ptr-spin 0.7s linear infinite' : 'none';
+    }
+
+    // Add keyframe animation via style tag
+    const s = document.createElement('style');
+    s.textContent = '@keyframes ptr-spin{to{transform:translateX(-50%) rotate(360deg)}}';
+    document.head.appendChild(s);
+
+    document.addEventListener('touchstart', e => {
+      if (refreshing) return;
+      // Only start pull if scrolled to top
+      const scrollEl = document.scrollingElement || document.documentElement;
+      if (scrollEl.scrollTop > 0) return;
+      startY = e.touches[0].clientY;
+      pulling = true;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', e => {
+      if (!pulling || refreshing) return;
+      currentY = e.touches[0].clientY;
+      const drag = Math.max(0, currentY - startY);
+      if (drag > 0) {
+        const show = Math.min(drag * 0.5, 56); // dampen
+        indicator.style.top = (show - 60) + 'px';
+        spin(drag >= PTR_THRESHOLD);
+      }
+    }, { passive: true });
+
+    document.addEventListener('touchend', async () => {
+      if (!pulling || refreshing) return;
+      pulling = false;
+      const drag = currentY - startY;
+
+      if (drag >= PTR_THRESHOLD) {
+        // Trigger refresh
+        refreshing = true;
+        indicator.style.top = '16px';
+        spin(true);
+        try {
+          if (window.Store) await window.Store.fetchAndCacheData();
+          // Re-render current route
+          if (window.Router) Router.reload();
+        } catch(e) {
+          console.warn('Pull-to-refresh failed:', e);
+        }
+        setTimeout(() => {
+          indicator.style.top = '-60px';
+          spin(false);
+          refreshing = false;
+        }, 600);
+      } else {
+        indicator.style.top = '-60px';
+        spin(false);
+      }
+      startY = 0; currentY = 0;
+    });
+  })();
+  </script>
   <!-- Trainer -->
   <script src="js/trainer/swipe-engine.js?v=10"></script>
   <script src="js/trainer/dashboard.js?v=10"></script>
@@ -192,7 +270,9 @@
       const map  = { admin: 'admin-dashboard', trainer: 'trainer-dashboard' };
       Router.go(map[user.role] || 'login');
     } catch (err) {
-      _showErr(container, err.message || 'Invalid credentials.');
+      console.error('Login error detailed:', err);
+      const detail = err && err.stack ? ` (${err.message})` : '';
+      _showErr(container, `Login failed: ${err.message || 'Unknown error'}`);
     } finally {
       if (triggerEl) { triggerEl.disabled = false; }
     }
@@ -203,7 +283,7 @@
     if (!el) return;
     el.textContent = msg;
     el.style.display = 'block';
-    setTimeout(() => { el.style.display = 'none'; }, 4000);
+    el.style.wordBreak = 'break-all';
   }
 
   /* ── ROUTE REGISTRATION ────────────────────────────────────── */

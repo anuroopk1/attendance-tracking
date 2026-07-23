@@ -78,7 +78,11 @@ const Router = (() => {
     navigate(false);
   }
 
-  return { register, go, back, init, get current() { return currentId; } };
+  function reload() {
+    navigate(false);
+  }
+
+  return { register, go, back, init, reload, get current() { return currentId; } };
 })();
 
 window.Router = Router;
