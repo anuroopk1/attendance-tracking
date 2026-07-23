@@ -14,7 +14,23 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Enable CORS for frontend client calls
-const corsOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*';
+// Always include Capacitor/Ionic native origins so iOS/Android apps can reach the API
+const CAPACITOR_ORIGINS = [
+  'capacitor://localhost',
+  'ionic://localhost',
+  'http://localhost',
+];
+
+let corsOrigins;
+if (!process.env.CORS_ORIGIN || process.env.CORS_ORIGIN === '*') {
+  corsOrigins = true; // allow all
+} else {
+  corsOrigins = [
+    ...process.env.CORS_ORIGIN.split(',').map(o => o.trim()),
+    ...CAPACITOR_ORIGINS,
+  ];
+}
+
 app.use(cors({
   origin: corsOrigins,
   credentials: true
